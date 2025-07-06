@@ -1,17 +1,18 @@
-from flask import Flask, render_template, redirect
-import random
-import string
-
+from flask import Flask, jsonify
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+valid_keys = ["9TH094GIG13XX19S", "A1B2C3D4E5F6", "XYZ987654321"]
 
-@app.route('/generatekey')
-def generate_key():
-    key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=16))
-    return f"<h1>Your Generated Key</h1><p>{key}</p><br>"
+@app.route('/validkeys', methods=['GET'])
+def get_keys():
+    return jsonify({"keys": valid_keys})
+
+<script>
+  setTimeout(function() {
+    window.location.href = "/generatekey.html";
+  }, 5000);
+</script>
+
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    app.run(host='0.0.0.0', port=10000)  # Port 10000 is safe on Render
