@@ -1,28 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Key</title>
-</head>
-<body>
-  <h1>Your Generated Key</h1>
-  <div id="keyBox"></div>
+from flask import Flask, jsonify
+import random
+import string
 
-  <script>
-    function generateRandomKey(length) {
-      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-      let result = "";
-      for (let i = 0; i < length; i++) {
-        result += chars.charAt(Math.floor(Math.random() * chars.length));
-      }
-      return result;
-    }
+app = Flask(__name__)
 
-    const key = generateRandomKey(16);
-    document.getElementById("keyBox").innerText = key;
+def generate_key(length=16):
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=length))
 
-    // Optionally log or store this key (e.g., on a backend)
-  </script>
-</body>
-</html>
+@app.route("/generatekey", methods=["GET"])
+def generate_key_route():
+    key = generate_key()
+    return jsonify({"key": key})
+
+if __name__ == "__main__":
+    app.run()
