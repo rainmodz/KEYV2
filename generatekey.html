@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Key</title>
+</head>
+<body>
+  <h1>Your Generated Key</h1>
+  <div id="keyBox"></div>
+
+  <script>
+    function generateRandomKey(length) {
+      const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+      let result = "";
+      for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+      return result;
+    }
+
+    const key = generateRandomKey(16);
+    document.getElementById("keyBox").innerText = key;
+
+    // Optionally log or store this key (e.g., on a backend)
+  </script>
+</body>
+</html>
