@@ -7,12 +7,5 @@ valid_keys = ["9TH094GIG13XX19S", "A1B2C3D4E5F6", "XYZ987654321"]
 def get_keys():
     return jsonify({"keys": valid_keys})
 
-<script>
-  setTimeout(function() {
-    window.location.href = "/generatekey.html";
-  }, 5000);
-</script>
-
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)  # Port 10000 is safe on Render
