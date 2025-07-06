@@ -1,24 +1,17 @@
-from flask import Flask
+from flask import Flask, render_template, redirect
 import random
 import string
-import os
 
 app = Flask(__name__)
 
-# Function to generate a random key
-def generate_key(length=16):
-    characters = string.ascii_uppercase + string.digits
-    return ''.join(random.choices(characters, k=length))
-
-@app.route("/")
+@app.route('/')
 def home():
-    return "Key Generator is running."
+    return render_template('index.html')
 
-@app.route("/generatekey")
-def key():
-    return generate_key()
+@app.route('/generatekey')
+def generate_key():
+    key = ''.join(random.choices(string.ascii_uppercase + string.digits, k=16))
+    return f"<h1>Your Generated Key</h1><p>{key}</p><br><p>Save this key and paste it in the script to activate.</p>"
 
-# Required by Render
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Use PORT env or default to 10000
-    app.run(host="0.0.0.0", port=port)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
